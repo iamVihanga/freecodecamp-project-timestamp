@@ -32,14 +32,18 @@ app.get("/api/", (req, res) => {
 });
 
 app.get("/api/:date_string", (req, res) => {
-  let date;
-  if (isNaN(Number(req.params.date_string))) {
-    date = new Date(req.params.date_string);
-    res.json({ unix: date.getTime(), utc: date.toUTCString() });
-  } else {
-    date = new Date(Number(req.params.date_string));
-    res.json({ unix: date.getTime(), utc: date.toUTCString() });
+  let dateString = req.params.date_string;
+
+  if (dateString.match(/\d{5,}/)) {
+    dateString = +dateString;
   }
+
+  let dateObj = new Date(dateString);
+  if ((dateObj.toUTCString() = "Invalid Date")) {
+    res.json({ error: "Invalid Date" });
+  }
+
+  res.json({ unix: dateObj.valueOf(), utc: dateObj.toUTCString() });
 });
 
 // listen for requests :)
