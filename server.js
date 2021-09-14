@@ -31,15 +31,15 @@ app.get("/api/", (req, res) => {
   });
 });
 
-app.get("/api/:date_string", (req, res) => {
-  let dateString = req.params.date_string;
+app.get("/api/:date", (req, res) => {
+  let dateString = req.params.date;
 
   if (dateString.match(/\d{5,}/)) {
     dateString = +dateString;
   }
 
   let dateObj = new Date(dateString);
-  if ((dateObj.toUTCString() = "Invalid Date")) {
+  if (dateObj.toUTCString() == "Invalid Date") {
     res.json({ error: "Invalid Date" });
   }
 
